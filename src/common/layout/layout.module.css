@@ -1,0 +1,15 @@
+.handleBar_item:hover {
+    background-color: var(--secondary-color);
+    color: var(--main-color) ;
+    border-radius: 8px;
+    border-left: 3px solid var(--main-color);
+}
+
+.active {
+    background-color: var(--secondary-color);
+    color: var(--main-color) ;
+    border-radius: 8px;
+    border-left: 3px solid var(--main-color);
+}
+
+

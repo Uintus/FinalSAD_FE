@@ -6,7 +6,7 @@
 export function NoDataFound() {
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <img src="src/assets/no_data.jpg" alt="" className="w-[200px]" />
+      <img src="/no_data.jpg" alt="" className="w-[200px]" />
       <p className="text-center text-[var(--text-color)] font-[700] text-[20px]">No data found</p>
     </div>
   );

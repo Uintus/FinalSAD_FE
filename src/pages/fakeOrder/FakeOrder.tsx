@@ -33,7 +33,6 @@ const FakeOrder = () => {
     items: [{ product_id: "", quantity: 0 }],
   });
 
-  console.log("form", form);
 
   /**
    * Handle changes to the form

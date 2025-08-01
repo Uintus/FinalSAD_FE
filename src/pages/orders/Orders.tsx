@@ -1,4 +1,4 @@
-import Handlebar from '../../common/layout/Handlebar'
+import { Handlebar } from "../../common/layout/Handlebar";
 
 const Orders = () => {
   return (
@@ -8,7 +8,7 @@ const Orders = () => {
         Danh sách đơn hàng (chưa hiển thị)
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;

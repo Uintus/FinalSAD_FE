@@ -1,6 +1,12 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import { Handlebar } from "./common/layout/Handlebar";
 import Dashboard from "./pages/dashboard/Dashboard";
+import FakeOrder from "./pages/fakeOrder/FakeOrder";
 
 function App() {
   return (
@@ -13,6 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/create-fake-order" element={<FakeOrder />} />
+
             {/* <Route path="/orders" element={<Orders />} /> */}
           </Routes>
         </div>

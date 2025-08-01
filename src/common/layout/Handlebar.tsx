@@ -2,7 +2,7 @@ import { barItemList } from "../../constant/common";
 import logo from "../../assets/logo.png";
 import layout from "./layout.module.css";
 import Button from "@mui/material/Button";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export function Handlebar() {
   return (
@@ -34,12 +34,12 @@ export function Handlebar() {
       </div>
 
       <div className="p-[20px]">
-        <Button variant="outlined" className="">
-          Create a FAKE order
-        </Button>
+        <Link to="/create-fake-order">
+          <Button variant="outlined" className="">
+            Create a FAKE order
+          </Button>
+        </Link>
       </div>
-
-      
     </div>
   );
 }

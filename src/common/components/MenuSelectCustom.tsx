@@ -16,8 +16,9 @@ export function MenuSelectCustom({
         onChange={handleChange}
         sx={{
           ...sx,
-          width: "150px",
-          height: "38px",
+          width: "fit-content",
+          maxWidth: "200px",
+          height: "32px",
           fontSize: "14px",
           color: "var(--text-color)",
           "& .MuiOutlinedInput-notchedOutline": {

@@ -139,3 +139,10 @@ export const ORDER_STATUS_MAP: Record<string, string> = {
   "1": "Pending",
   "2": "Completed",
 };
+
+// Order status
+export const ORDER_STATUS = {
+  PENDING: '1',
+  COMPLETED: '2',
+  CANCELLED: '0',
+};

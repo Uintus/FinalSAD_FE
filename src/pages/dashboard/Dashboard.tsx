@@ -202,20 +202,6 @@ const Dashboard = () => {
   function headerContent(): JSX.Element {
     return (
       <div className="flex flex-row gap-2 items-center">
-        {/* Button for exporting data */}
-        <Button
-          variant="contained"
-          startIcon={<TbDownload />}
-          sx={{
-            backgroundColor: "var(--main-color)",
-            color: "var(--light-color)",
-            height: "35px",
-            textTransform: "none",
-          }}
-        >
-          Export
-        </Button>
-
         {/* Menu select for filtering */}
         <MenuSelectCustom
           itemList={FILTER_OPTIONS}
@@ -333,17 +319,42 @@ const Dashboard = () => {
                     <p className="text-[20px] font-bold">
                       Top 20 Selling Products
                     </p>
-                    {!isLoadingCategory &&
-                    Array.isArray(categoryData) &&
-                    categoryData.length > 0 ? (
-                      <MenuSelectCustom
-                        label="Category"
-                        itemList={categoryData}
-                        handleChange={handleChangeSelectCategory}
-                        value={getTopProductsQuery.category_id}
-                        defaultValue="All Categories"
-                      />
-                    ) : null}
+
+                    {!(
+                      (
+                        !isLoadingTopProducts &&
+                        (!Array.isArray(topProductsData) ||
+                          topProductsData.length === 0)
+                      )
+                    ) && (
+                      <div className="flex flex-row gap-3">
+                        {/* Button for exporting data */}
+                        <Button
+                          variant="contained"
+                          startIcon={<TbDownload />}
+                          sx={{
+                            backgroundColor: "var(--main-color)",
+                            color: "var(--light-color)",
+                            height: "32px",
+                            textTransform: "none",
+                          }}
+                        >
+                          Export
+                        </Button>
+
+                        {!isLoadingCategory &&
+                        Array.isArray(categoryData) &&
+                        categoryData.length > 0 ? (
+                          <MenuSelectCustom
+                            label="Category"
+                            itemList={categoryData}
+                            handleChange={handleChangeSelectCategory}
+                            value={getTopProductsQuery.category_id}
+                            defaultValue="All Categories"
+                          />
+                        ) : null}
+                      </div>
+                    )}
                   </div>
 
                   {isLoadingTopProducts ? (

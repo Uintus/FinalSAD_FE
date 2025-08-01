@@ -4,6 +4,10 @@ import layout from "./layout.module.css";
 import Button from "@mui/material/Button";
 import { Link, NavLink } from "react-router-dom";
 
+/**
+ * The Handlebar component
+ * @returns {JSX.Element} The JSX element of the Handlebar component
+ */
 export function Handlebar() {
   return (
     <div className="flex flex-col justify-between h-screen z-50">

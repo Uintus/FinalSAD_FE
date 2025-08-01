@@ -10,6 +10,14 @@ import {
 import type { TableCustomProps } from "../../constant/common";
 import { useState } from "react";
 
+/**
+ * TableCustom component
+ * @param {TableCustomProps<T>} props - The properties for the component.
+ * @param {T[]} props.rows - The data to be displayed in the table.
+ * @param {Column<T>[]} props.columns - The columns to be displayed in the table.
+ * @param {(id: string, direction: "asc" | "desc") => void} props.onSort - A callback function that is called when a column is sorted.
+ * @returns {JSX.Element} A JSX element representing the component.
+ */
 export default function TableCustom<T extends object>({
   columns,
   rows,
@@ -17,17 +25,20 @@ export default function TableCustom<T extends object>({
 }: TableCustomProps<T>) {
   const [rotatedCols, setRotatedCols] = useState<Record<string, boolean>>({});
 
+  /**
+   * Handle the rotation of a column.
+   * @param {string} id - The id of the column.
+   */
   const handleRotate = (id: string) => {
     setRotatedCols((prev) => {
       const currentDirection = prev[id] ? "asc" : "desc";
       const newDirection = currentDirection === "asc" ? "desc" : "asc";
 
-      // Gọi callback
-      onSort?.(id, newDirection); // nếu có truyền callback thì gọi
+      onSort?.(id, newDirection);
 
       return {
         ...prev,
-        [id]: !prev[id], // Toggle rotate
+        [id]: !prev[id],
       };
     });
   };

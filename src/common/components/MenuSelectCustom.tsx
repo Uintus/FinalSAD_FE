@@ -2,6 +2,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { DEFAULT_MENU_SELECT_VALUE, type MenuSelectCustomProps } from "../../constant/common";
 
+
+/**
+ * A custom select component with a menu that contains a list of items.
+ * This component is used for selecting a menu item.
+ * @param {MenuSelectCustomProps} props - The properties of the component.
+ * @returns {JSX.Element} The JSX element of the component.
+ */
 export function MenuSelectCustom({
   handleChange,
   value,

@@ -7,6 +7,8 @@ export const orderApi = createApi({
         baseUrl: `${import.meta.env.VITE_API_BASE_URL}/api/order`, 
     }),
     endpoints: (builder) => ({
+
+        // [POST] create order
         createOrder: builder.mutation<{ message: string }, OrderFormRequest>({
             query: (payload) => ({
                 url: '/',

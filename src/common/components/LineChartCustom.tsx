@@ -10,6 +10,11 @@ import {
 } from "recharts";
 import type { LineChartCustomProps } from "../../constant/dashboard";
 
+/**
+ * Custom Line Chart component
+ * @param {LineChartCustomProps} props Props object
+ * @returns {JSX.Element} Line Chart component
+ */
 export default function LineChartCustom({ data, title,name_avg, name_total }: LineChartCustomProps) {
   return (
     <div className="relative h-full">

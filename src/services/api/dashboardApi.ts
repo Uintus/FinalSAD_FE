@@ -22,6 +22,14 @@ export const dashboardApi = createApi({
       }),
     }),
 
+    // [GET] get export top products
+    getExportTopProducts: builder.query<{ data: TopProductsResponse }, { range: string, sort: string, category_id: string }>({
+      query: (params) => ({
+        url: '/export-top-products',
+        params,
+      }),
+    }),
+
     
   }),
 })

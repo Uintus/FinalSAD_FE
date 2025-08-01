@@ -1,6 +1,11 @@
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import type { BarChartCustomProps } from "../../constant/dashboard";
 
+/**
+ * Custom Bar Chart component
+ * @param {BarChartCustomProps} props Props object
+ * @returns {JSX.Element} Bar Chart component
+ */
 const BarChartCustom = ({ data, title }: BarChartCustomProps) => {
   return (
     <div className="relative flex- flex-col  h-full">

@@ -31,8 +31,12 @@ import {
 } from "../../services/api/dashboardApi";
 import { useGetCategoryQuery } from "../../services/api/categoryApi";
 import { NoDataFound } from "../../common/components/NoDataFound";
+import axios from "axios";
+import { toast } from "sonner";
 
+// Render dashboard page
 const Dashboard = () => {
+  // columns of table
   const columns: Column<ProductRow>[] = [
     {
       id: "name",
@@ -88,7 +92,7 @@ const Dashboard = () => {
   const { data: { data: dashboardData } = {}, isLoading: isLoadingDashboard } =
     useGetDashboardQuery(
       { range: selectedRangeDate },
-      { pollingInterval: 120000 }
+      { pollingInterval: 120000, refetchOnMountOrArgChange: true }
     );
 
   // Call API get top products
@@ -212,6 +216,54 @@ const Dashboard = () => {
     );
   }
 
+  /**
+   * A function that handles the export of top products data.
+   * It triggers the download of an Excel file with the current query parameters.
+   */
+  function handleExport(): void {
+    toast.promise(downloadTopProductsExcel(getTopProductsQuery), {
+      loading: "Exporting...",
+      success: "Exported successfully!",
+      error: "Failed to export!",
+    });
+  }
+
+  /**
+   * Downloads an Excel file of the top products with the given query parameters.
+   * @param {{ range: string, sort: string, category_id: string }} params - The query parameters to use for the download.
+   * @returns {Promise<void>} Resolves when the download is complete.
+   */
+  async function downloadTopProductsExcel(params: {
+    range: string;
+    sort: string;
+    category_id: string;
+  }): Promise<void> {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/api/dashboard/export-top-products`,
+      {
+        params,
+        responseType: "blob",
+      }
+    );
+
+    if (response.status === 204) {
+      throw new Error("No data available to export.");
+    }
+
+    // Create a blob from the response data
+    const blob = new Blob([response.data], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    // Create a link element to download the blob as an Excel file
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "top_products.xlsx";
+    link.click();
+    // Revoke the object URL to free up memory
+    URL.revokeObjectURL(url);
+  }
   return (
     <LayoutWithHeader headerText="Dashboard" headerContent={headerContent()}>
       <div className="px-4">
@@ -320,41 +372,34 @@ const Dashboard = () => {
                       Top 20 Selling Products
                     </p>
 
-                    {!(
-                      (
-                        !isLoadingTopProducts &&
-                        (!Array.isArray(topProductsData) ||
-                          topProductsData.length === 0)
-                      )
-                    ) && (
-                      <div className="flex flex-row gap-3">
-                        {/* Button for exporting data */}
-                        <Button
-                          variant="contained"
-                          startIcon={<TbDownload />}
-                          sx={{
-                            backgroundColor: "var(--main-color)",
-                            color: "var(--light-color)",
-                            height: "32px",
-                            textTransform: "none",
-                          }}
-                        >
-                          Export
-                        </Button>
+                    <div className="flex flex-row gap-3">
+                      {/* Button for exporting data */}
+                      <Button
+                        variant="contained"
+                        startIcon={<TbDownload />}
+                        sx={{
+                          backgroundColor: "var(--main-color)",
+                          color: "var(--light-color)",
+                          height: "32px",
+                          textTransform: "none",
+                        }}
+                        onClick={handleExport}
+                      >
+                        Export
+                      </Button>
 
-                        {!isLoadingCategory &&
-                        Array.isArray(categoryData) &&
-                        categoryData.length > 0 ? (
-                          <MenuSelectCustom
-                            label="Category"
-                            itemList={categoryData}
-                            handleChange={handleChangeSelectCategory}
-                            value={getTopProductsQuery.category_id}
-                            defaultValue="All Categories"
-                          />
-                        ) : null}
-                      </div>
-                    )}
+                      {!isLoadingCategory &&
+                      Array.isArray(categoryData) &&
+                      categoryData.length > 0 ? (
+                        <MenuSelectCustom
+                          label="Category"
+                          itemList={categoryData}
+                          handleChange={handleChangeSelectCategory}
+                          value={getTopProductsQuery.category_id}
+                          defaultValue="All Categories"
+                        />
+                      ) : null}
+                    </div>
                   </div>
 
                   {isLoadingTopProducts ? (

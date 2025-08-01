@@ -1,11 +1,11 @@
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import type { BarChartCustomProps } from "../../constant/dashboard";
 
-const BarChartCustom = ({ data }: BarChartCustomProps) => {
+const BarChartCustom = ({ data, title }: BarChartCustomProps) => {
   return (
     <div className="relative flex- flex-col  h-full">
       <p className="text-[20px] font-bold text-[var(--text-color)] absolute left-4">
-        Revenue by Product Category
+        {title}
       </p>
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
@@ -18,17 +18,15 @@ const BarChartCustom = ({ data }: BarChartCustomProps) => {
           }}
           className={`no_outline`}
         >
-          {/* Trục X - hiển thị tên (label) */}
           <XAxis
-            dataKey="name"
+            dataKey="label"
             stroke="#b8b9bc"
-            tick={{ fill: "#b8b9bc" }}
+            tick={{ fill: "#212728", fontSize: 14, fontWeight: 500 }}
             axisLine={{ stroke: "#b8b9bc" }}
             tickLine={{ stroke: "#b8b9bc" }}
             className="text-[12px]"
           />
 
-          {/* Trục Y - hiển thị giá trị số */}
           <YAxis
             stroke="#b8b9bc"
             tick={{ fill: "#212728" }}
@@ -36,7 +34,7 @@ const BarChartCustom = ({ data }: BarChartCustomProps) => {
             tickLine={{ stroke: "#b8b9bc" }}
             className="text-[12px]"
           />
-          <Bar dataKey="uv" fill="#8884d8" />
+          <Bar dataKey="total" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
     </div>

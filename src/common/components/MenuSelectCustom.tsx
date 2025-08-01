@@ -1,17 +1,18 @@
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import type { MenuSelectCustomProps } from "../../constant/common";
+import { DEFAULT_MENU_SELECT_VALUE, type MenuSelectCustomProps } from "../../constant/common";
 
 export function MenuSelectCustom({
   handleChange,
   value,
   itemList,
   sx,
+  defaultValue,
 }: MenuSelectCustomProps) {
   return (
     <div className="relative">
       <Select
-        value={value || "-1"}
+        value={value || DEFAULT_MENU_SELECT_VALUE}
         onChange={handleChange}
         sx={{
           ...sx,
@@ -26,10 +27,20 @@ export function MenuSelectCustom({
             borderColor: "var(--main-color)",
           },
         }}
+        MenuProps={{
+          PaperProps: {
+            style: {
+              maxHeight: 200, 
+              overflowY: "auto",
+            },
+          },
+        }}
       >
-        <MenuItem value={"-1"}>All categoris</MenuItem>
+        {defaultValue && <MenuItem value={DEFAULT_MENU_SELECT_VALUE}>{defaultValue}</MenuItem>}
         {itemList.map((item) => (
-          <MenuItem value={item.id}>{item.name}</MenuItem>
+          <MenuItem key={item.id} value={item.id}>
+            {item.name}
+          </MenuItem>
         ))}
       </Select>
     </div>

@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Handlebar } from "./common/layout/Handlebar";
 import Dashboard from "./pages/dashboard/Dashboard";
 
@@ -11,6 +11,7 @@ function App() {
         </div>
         <div className="basis-5/6 bg-[var(--bg-color)] h-full flex flex-col overflow-auto scrollbar-hide">
           <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             {/* <Route path="/orders" element={<Orders />} /> */}
           </Routes>

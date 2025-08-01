@@ -1,17 +1,29 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { DashboardGetResponse } from '../../constant/dashboard'
+import type { TopProductsResponse, DashboardResponse } from '../../constant/dashboard'
 
 export const dashboardApi = createApi({
   reducerPath: 'dashboardApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_API_BASE_URL}/api/dashboard` }),
   endpoints: builder => ({
-    getDashboard: builder.query<DashboardGetResponse, { range: string }>({
+
+    // [GET] get dashboard
+    getDashboard: builder.query<{ data: DashboardResponse }, { range: string }>({
       query: (params) => ({
-        url: 'dashboard',
+        url: '/',
         params,
       }),
     }),
+
+    // [GET] get top products
+    getTopProducts: builder.query<{ data: TopProductsResponse }, { range: string, sort: string, category_id: string }>({
+      query: (params) => ({
+        url: '/top-products',
+        params,
+      }),
+    }),
+
+    
   }),
 })
 
-export const { useGetDashboardQuery } = dashboardApi
+export const { useGetDashboardQuery, useGetTopProductsQuery } = dashboardApi

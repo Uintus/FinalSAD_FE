@@ -10,11 +10,11 @@ import {
 } from "recharts";
 import type { LineChartCustomProps } from "../../constant/dashboard";
 
-export default function LineChartCustom({ data }: LineChartCustomProps) {
+export default function LineChartCustom({ data, title,name_avg, name_total }: LineChartCustomProps) {
   return (
     <div className="relative h-full">
       <p className="text-[20px] font-bold text-[var(--text-color)] absolute left-4">
-        Revenue
+        {title}
       </p>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
@@ -31,7 +31,7 @@ export default function LineChartCustom({ data }: LineChartCustomProps) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey="name"
+            dataKey="label"
             stroke="#b8b9bc"
             tick={{ fill: "#b8b9bc" }}
             axisLine={{ stroke: "#b8b9bc" }}
@@ -87,15 +87,15 @@ export default function LineChartCustom({ data }: LineChartCustomProps) {
           />
           <Line
             type="monotone"
-            dataKey="pv"
-            name="Revenue"
+            dataKey="total"
+            name={name_total}
             stroke="#8884d8"
             activeDot={{ r: 8 }}
           />
           <Line
             type="monotone"
-            dataKey="uv"
-            name="Avg.Revenue"
+            dataKey="avg"
+            name={name_avg}
             stroke="#82ca9d"
           />
         </LineChart>

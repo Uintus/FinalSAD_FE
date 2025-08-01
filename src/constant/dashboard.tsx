@@ -1,9 +1,43 @@
 import type { ReactNode } from "react";
+import type { ProductRow } from "./common";
 
 // response type of GET dashboard api
-export type DashboardGetResponse = {
-  data: number;
-  labels: string;
+export type DashboardResponse = {
+  summaryTotal: {
+    totalSales: string;
+    totalOrders: number;
+    totalRevenue: string;
+    fulfillmentRate: number;
+    comparisons: {
+      salesChange: number;
+      ordersChange: number;
+      revenueChange: number;
+      fulfillmentRateChange: number;
+    };
+  };
+  lineChartData: {
+    label: string;
+    total: number;
+    avg: number;
+  }[];
+  pieChartData: {
+    label: string;
+    value: number;
+  }[];
+  barChartData: {
+    label: string;
+    total: number;
+  }[];
+};
+
+// response type of GET top products api
+export type TopProductsResponse = ProductRow[];
+
+// query of top products
+export const TOP_PRODUCTS_QUERY = {
+  RANGE: "7",
+  SORT: "desc",
+  CATEGORY_ID: "",
 };
 
 // type of card component
@@ -18,21 +52,20 @@ export const FILTER_OPTIONS = [
     name: "Last 7 days",
   },
   {
-    id: "07",
+    id: "02",
+    name: "Month to date",
+  },
+  {
+    id: "01",
     name: "Year to date",
   },
 ];
 
-// data status change
-export const DATA_STATUS_CHANGE = {
-  INCREASE: "1",
-  DECREASE: "-1",
-};
-
 // data type change
 export const DATA_DATE_CHANGE = {
-  MONTH: "01",
-  WEEK: "7",
+  LAST_7_DAYS: "7",
+  YEAR_TO_DATE: "01",
+  MONTH_TO_DATE: "02",
 };
 
 // data type
@@ -43,18 +76,23 @@ export const DATA_TYPE = {
 
 // type of line chart
 export type LineChartCustomProps = {
-  data: { name: string; pv: number; uv: number }[];
+  data: { label: string; avg: number; total: number }[];
+  title?: string;
+  name_avg: string;
+  name_total: string;
 };
 
 // type of pie chart
 export type PieChartCustomProps = {
   data: { name: string; value: number }[];
+  title?: string;
 };
 
 // type of bar chart
 export type BarChartCustomProps = {
-  data: { name: string; uv: number }[];
-}
+  data: { label: string; total: number }[];
+  title?: string;
+};
 
 // type of tooltip
 export type TooltipPayload = ReadonlyArray<{ name: string; value: string }>;
@@ -94,3 +132,10 @@ export type PieLabelProps = PieSectorData &
   GeometrySector & {
     tooltipPayload?: { name: string; value: string };
   };
+
+// type of order status
+export const ORDER_STATUS_MAP: Record<string, string> = {
+  "0": "Cancelled",
+  "1": "Pending",
+  "2": "Completed",
+};

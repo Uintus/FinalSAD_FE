@@ -44,6 +44,7 @@ export type MenuSelectCustomProps = {
   itemList: {id: string; name: string}[];
   sx?: SxProps<Theme>;
   label?: string;
+  defaultValue?: string;
 };
 
 export interface ProductRow {
@@ -68,5 +69,7 @@ export interface TableCustomProps<T> {
   rows: T[];
   onSort?: (columnId: string, direction: "asc" | "desc") => void;
 }
+
+export const DEFAULT_MENU_SELECT_VALUE = "-1";
 
 

@@ -30,11 +30,11 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function PieChartCustom({ data }: PieChartCustomProps) {
+export default function PieChartCustom({ data, title }: PieChartCustomProps) {
   return (
     <div className="relative flex- flex-col  h-full" >
       <p className="text-[20px] font-bold text-[var(--text-color)] absolute left-4">
-        Order Status Ratio
+        {title}
       </p>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>

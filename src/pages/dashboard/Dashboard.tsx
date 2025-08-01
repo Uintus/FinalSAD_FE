@@ -305,7 +305,7 @@ const Dashboard = () => {
                               : "text-[var(--error-color)]"
                           } text-[14px] font-[500]`}
                         >
-                          {Math.round(item.changeNumber)}%
+                          {Math.round(Math.abs(item.changeNumber))}%
                         </p>
                       </div>
                       <p>
